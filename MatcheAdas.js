@@ -100,4 +100,4 @@ const createGrid = (key) => {
         }
     }
 }
-createGrid('difficult')
+
