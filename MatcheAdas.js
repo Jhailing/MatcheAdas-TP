@@ -1,30 +1,30 @@
 //Llamando la grilla principal
 const mainGrid = document.querySelector('.grid');
 const boxes = [];
-let emojiRose = ['🐷', '🌷', '💗', '🤰🏾', '🧠', '👄', ];
+let emojiRose = ['🐷', '🌷', '💗', '🤰🏾', '🧠', '👄',];
 
 //Constante en donde guardo todas las características del tamaño de la matriz
 const levels = [{
-        key: 'easy',
-        size: 9,
-        label: 'facil',
-        fontSize: 30,
-        itemSize: 56
-    },
-    {
-        key: 'normal',
-        size: 8,
-        label: 'normal',
-        fontSize: 30,
-        itemSize: 62
-    },
-    {
-        key: 'difficult',
-        size: 7,
-        label: 'Dificil',
-        fontSize: 35,
-        itemSize: 72
-    }
+    key: 'easy',
+    size: 9,
+    label: 'facil',
+    fontSize: 30,
+    itemSize: 56
+},
+{
+    key: 'normal',
+    size: 8,
+    label: 'normal',
+    fontSize: 30,
+    itemSize: 62
+},
+{
+    key: 'difficult',
+    size: 7,
+    label: 'Dificil',
+    fontSize: 35,
+    itemSize: 72
+}
 ];
 let levelSize;
 
@@ -48,6 +48,21 @@ const createGrid = (key) => {
             let randomEmojis = Math.floor(Math.random() * emojiRose.length);
             smallBox.innerHTML = emojiRose[randomEmojis];
             smallBox.className = key;
+
+            //Generando estilos a los divs
+            // smallBox.style.border = '1px solid lightpink';   
+            smallBox.style.position = 'absolute';
+            smallBox.style.top = `${level.itemSize * row}px`;
+            smallBox.style.left = `${level.itemSize * column}px`;
+            smallBox.style.fontSize = `${level.fontSize}px`;
+            smallBox.style.display = 'flex';
+
+            smallBox.setAttribute('data-x', row);
+            smallBox.setAttribute('data-y', column);
+            smallBox.setAttribute('data-emoji', randomEmojis);
+
+            mainGrid.appendChild(smallBox);
+            boxes.push(smallBox);
         }
     }
 }
