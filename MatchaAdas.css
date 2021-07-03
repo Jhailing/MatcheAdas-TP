@@ -1,0 +1,141 @@
+* {
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+}
+
+body {
+    font-family: 'Pacifico', cursive;
+    background-image: url(http://www.solofondos.com/wp-content/uploads/2015/12/5e2ed9a2d5e8da4fd96bb2265c4e53f8.jpg);
+    background-size:auto;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;    
+}
+
+/* CONTAINER PRINCIPAL **/
+.container {
+    width: 100vw;
+    height: 100hw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    color: white;
+    font-weight: bold;
+    align-content: center;
+    text-shadow: 1px 1px 2px rgb(255, 0, 179), 0 0 1em yellow, 0 0 0.2em yellow;
+}
+
+/* CONTAINER CONTROLES DEL JUEGO **/
+.controls {
+    width: 480px;
+    height: 60px;
+    font-size: 20px;
+    padding: 10px;
+    color: white;  
+    background-color: rgb(255, 0, 179);
+    border: solid rgb(247, 247, 94) 3px;
+    border-radius: 8px;  
+    box-shadow: 1px 1px 2px yellow, 0 0 1em yellow, 0 0 0.2em yellow;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-score {
+    width: 220px;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+}
+
+span {
+    margin-left: 5px;
+}
+
+.btn-control {
+    border: none;
+    background-color: transparent; 
+    padding: 7px;
+    font-size: 20px;
+    color: white; 
+}
+
+/** GRILLA ***/
+.container-grid{
+    width: 500px;
+    height: 500px;
+    margin-top: 50px;
+    padding: 5px;
+    justify-content: center;
+    align-content: center;
+}
+.grid{
+    position: relative; 
+    width: 100%;
+    height: 500px;
+    border: 3px solid lightpink; 
+    border-radius: 8px;
+    justify-content: center;
+    align-content: center;
+}
+.grid .easy{
+    width:  56px;
+    height: 56px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s,
+    right 0.4s, transform 0.2s;
+}
+.grid .normal{
+    width:  63px;
+    height:  63px;
+   box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s,
+    right 0.4s, transform 0.2s;
+}
+.grid .difficult{
+    width: 72px;
+    height: 72px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: top 0.4s, left 0.4s, bottom 0.4s,
+    right 0.4s, transform 0.2s;
+}
+
+/* CONTAINER TIEMPO DEL JUEGO **/
+.div-time {
+    width: 150px;
+    height: 50px;
+    border: 3px solid lightpink;
+    border-radius: 10px;
+    background-color: rgb(255, 0, 179); 
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.fa-hourglass-half{
+    padding: 10px;
+    font-size: 30px;
+    color: white;
+}
+.clock{
+    padding: 5px;
+    font-size: 25px;
+    color: white; 
+}
