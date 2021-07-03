@@ -139,3 +139,9 @@ span {
     font-size: 25px;
     color: white; 
 }
+.seconds {
+    padding: 5px;
+    font-size: 25px;
+    color: white; 
+    margin-top: 1%;
+}
