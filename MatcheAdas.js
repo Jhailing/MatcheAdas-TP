@@ -1,30 +1,30 @@
 //Llamando la grilla principal
 const mainGrid = document.querySelector('.grid');
 const boxes = [];
-let emojiRose = ['🐷', '🌷', '💗', '🤰🏾', '🧠', '👄',];
+let emojiRose = ['🐷', '🌷', '💗', '🤰🏾', '🧠', '👄', ];
 
 //Constante en donde guardo todas las características del tamaño de la matriz
 const levels = [{
-    key: 'easy',
-    size: 9,
-    label: 'facil',
-    fontSize: 30,
-    itemSize: 56
-},
-{
-    key: 'normal',
-    size: 8,
-    label: 'normal',
-    fontSize: 30,
-    itemSize: 62
-},
-{
-    key: 'difficult',
-    size: 7,
-    label: 'Dificil',
-    fontSize: 35,
-    itemSize: 72
-}
+        key: 'easy',
+        size: 9,
+        label: 'facil',
+        fontSize: 30,
+        itemSize: 56
+    },
+    {
+        key: 'normal',
+        size: 8,
+        label: 'normal',
+        fontSize: 30,
+        itemSize: 62
+    },
+    {
+        key: 'difficult',
+        size: 7,
+        label: 'Dificil',
+        fontSize: 35,
+        itemSize: 72
+    }
 ];
 let levelSize;
 
@@ -63,6 +63,42 @@ const createGrid = (key) => {
 
             mainGrid.appendChild(smallBox);
             boxes.push(smallBox);
+
+            //Creando evento de clickeado
+            smallBox.addEventListener('click', e => {
+
+                if (itemSelected == null) {
+                    itemSelected = e.target;
+                } else {
+                    clickedItem = e.target;
+                    if (isAdyacenteBox(itemSelected, clickedItem)
+
+                    ) {
+                        console.log("isAdyacenteBox")
+                    }
+
+                    //Constantes auxiliares que reciben los eventos del if
+                    const firstAux = itemSelected.style.top;
+                    const secondAux = itemSelected.style.left;
+
+                    itemSelected.style.top = clickedItem.style.top;
+                    itemSelected.style.left = clickedItem.style.left;
+                    //itemSelected.setAttribute('data-x', clickedItem.dataset.x);
+                    // itemSelected.setAttribute('data-y', clickedItem.dataset.y);
+
+                    //generar vriable auxiliar para almacenar el clicked
+
+                    clickedItem.style.top = firstAux;
+                    clickedItem.style.left = secondAux;
+
+                    itemSelected = null;
+                    clickedItem = null;
+                }
+
+                // console.log(e.target);
+            });
         }
     }
 }
+
+createGrid('difficult')
