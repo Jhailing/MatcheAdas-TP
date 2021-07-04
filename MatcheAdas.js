@@ -64,7 +64,7 @@ const createGrid = (key) => {
             mainGrid.appendChild(smallBox);
             boxes.push(smallBox);
 
-            //Creando evento de clickeado
+            //Creando evento de clickeado e intercambio de divs
             smallBox.addEventListener('click', e => {
 
                 if (itemSelected == null) {
@@ -72,10 +72,8 @@ const createGrid = (key) => {
                 } else {
                     clickedItem = e.target;
 
-                    if (isAdyacenteBox(itemSelected, clickedItem)
-                    ) {
-                        console.log("isAdyacenteBox")
-                    }
+                //    if (isAdyacenteBox(itemSelected, clickedItem)) {
+                  //      console.log("isAdyacenteBox")
 
                     //Constantes auxiliares que reciben los eventos del if
                     const firstAux = itemSelected.style.top;
@@ -83,10 +81,10 @@ const createGrid = (key) => {
 
                     itemSelected.style.top = clickedItem.style.top;
                     itemSelected.style.left = clickedItem.style.left;
-                    //itemSelected.setAttribute('data-x', clickedItem.dataset.x);
-                    // itemSelected.setAttribute('data-y', clickedItem.dataset.y);
+                    itemSelected.setAttribute('data-x', clickedItem.dataset.x);
+                    itemSelected.setAttribute('data-y', clickedItem.dataset.y);
 
-                    //generar vriable auxiliar para almacenar el clicked
+                    //Generar variable auxiliar para almacenar el clicked
 
                     clickedItem.style.top = firstAux;
                     clickedItem.style.left = secondAux;
@@ -103,7 +101,40 @@ const createGrid = (key) => {
 
 createGrid('difficult')
 
-/*-------------------------clock countdown function----------*/
+/*-------------------------Anuncio de bienvenida al juego----------*/
+
+function mostrar() { 
+    swal({
+        title: '¡Bienvenida!',
+        text: "En MatcheADAs tu objetivo es juntar tres o más ítems del mismo tipo, ya sea en fila o columna. Para eso, selecciona un ítem y a continuación un ítem adyacente para intercambiarlos de lugar., Si se forma un grupo, esos ítems se eliminarán y ganarás puntos. ¡Sigue armando grupos de 3 o más antes de que se acabe el tiempo!\n\nControles\n\nClick izquierdo: selección\nEnter o Espacio: selección\nFlechas o WASD: movimiento e intercambio",
+
+        button: ({
+            text: "A  Jugar",
+            confirm: 'Confirm',
+               className:'btn-toPlay',
+               confirmButtonAriaLabel: 'Iniciar el juego',
+         })
+
+    });
+  }
+ mostrar();
+
+/*-------------------------Anuncio reiniciar juego----------*/
+ 
+function restartGame() {
+     swal({
+         title: '¿Reiniciar Juego?',
+         text: '¡Perderás todo tu puntaje acumulado!',
+
+         buttons: ({
+             cancel: true,
+             confirm: 'Nuevo Juego',
+         })
+
+     })
+ }
+
+ /*-------------------------clock countdown function----------*/
 window.onload = updateClock;
 
 var totalTime = 30;
@@ -118,7 +149,7 @@ function updateClock() {
     }
 }
 
-/-------------------------delete match function----------/
+//-------------------------Delete match function----------//
 
 const isAdyacenteBox = (a, b) => {
     const firstRowX = parseInt(a.dataset.x);
@@ -135,7 +166,7 @@ const isAdyacenteBox = (a, b) => {
 
 };
 
-//----------------check si hay match vertical -------------------------//
+//----------------Check si hay match vertical -------------------------//
 const checkMatchVertical = () => {
 
     for (let i = 0; i < levelSize; i++) {
@@ -152,13 +183,13 @@ const checkMatchVertical = () => {
             }
         }
 
-        //cuando hago los desplazamientos debiera cambie
+        //Cuando hago los desplazamientos, en la consola cambia la posición pero no el emoji.
 
-        // crer constante que almacene los match encontrados de mnera verticl j +j1+j2//
+        //Cree constante que almacene los match encontrados de manera vertical j+j1+j2
 
       
       
-        //----------------check si hay match horizontal -------------------------//
+        //----------------Check si hay match horizontal -------------------------//
 
         const checkMatchhorizontal = () => {
 
@@ -195,12 +226,7 @@ const checkMatchVertical = () => {
 
     }
 
-    // }
-
-    // }
-
-
-    // //----------------------------- JHAY  ----------------------------//
+    // //-----------------------------Otra opción de abyacencias JHAI ----------------------------//
 
     // const isAdyacenteBox = (itemSelected, clickedItem) => {
     //   const itemSelectedX = number(itemSelected.dataset.x);
@@ -215,11 +241,5 @@ const checkMatchVertical = () => {
     //   }
     //   return false;
     // };
-
-
-
-    //--------yo le cambie los parámetros a la función, recuerden que antes tenia 
-    //--------(a,b) y no estaban declarados previamente. Entonces pensé ponerle los 
-    //---------mismos parámetros que la función de intercambiar divs.. pero nada{
 
 }

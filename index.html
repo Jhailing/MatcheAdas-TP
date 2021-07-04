@@ -21,8 +21,6 @@
     <div class="container">
         <h1 class="title">MatcheADAs</h1>
 
-        <!-- <button onclick="mostrar()">Mostrar</button> -->
-
         <!-- Div que contiene puntaje, combo, deshacer y botón de ayuda -->
         <div class="controls">
             <div class="container-score">
@@ -31,9 +29,9 @@
             </div>
            
             <div class="buttons-controller">
-                <button class="btn-control" id="btn-help" aria-label="Instrucciones del Juego">
+                <button class="btn-control" id="btn-help" onclick="mostrar()" aria-label="Instrucciones del Juego">
                     <i class="fas fa-info-circle"></i></button>
-                <button class="btn-control" id="btn-restart" aria-label="Reiniciar Juego">
+                <button class="btn-control" id="btn-restart" onclick="restartGame()" aria-label="Reiniciar Juego">
                     <i class="fas fa-undo-alt"></i></button>
             </div>
         </div>
