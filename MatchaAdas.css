@@ -145,3 +145,22 @@ span {
     color: white; 
     margin-top: 1%;
 }
+
+/* MODAL DEL JUEGO */
+.swal-title{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.swal-text{
+    padding: 20px;
+    text-align: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    line-height: 20px;
+}
+.btn-toPlay {
+    background-color:rgb(255, 0, 179);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 18px;
+}
+.btn-toPlay:hover{ /*(Aun no funciona)*/
+    background-color:rgb(255, 0, 179);
+}
