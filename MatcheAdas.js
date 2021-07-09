@@ -1,38 +1,9 @@
-//Llamando la grilla principal
-const mainGrid = document.querySelector('.grid');
-const boxes = [];
-let emojiRose = ['🐷', '🌷', '💗', '🤰🏾', '🧠', '👄',];
-
-//Constante en donde guardo todas las características del tamaño de la matriz
-const levels = [{
-    key: 'easy',
-    size: 9,
-    label: 'facil',
-    fontSize: 30,
-    itemSize: 56
-},
-{
-    key: 'normal',
-    size: 8,
-    label: 'normal',
-    fontSize: 30,
-    itemSize: 62
-},
-{
-    key: 'difficult',
-    size: 7,
-    label: 'Dificil',
-    fontSize: 35,
-    itemSize: 72
-}
-];
-let levelSize;
 
 //Variables para crear la función del elemento ó item clickeado e intercambiado por el de al lado
 let itemSelected = null;
 let clickedItem = null;
 
-
+const banana = (event)=>console.log(event)
 //Creando la grilla principal
 const createGrid = (key) => {
 
@@ -40,6 +11,9 @@ const createGrid = (key) => {
     const level = levels.filter(l => l.key === key)[0];
     levelSize = level.size;
     mainGrid.innerHTML = '';
+
+    //Generando grid
+
 
     //Mediante ambos "for" estoy generando, cantidad de columnas como de filas y orden aleatorio
     for (let column = 0; column < level.size; column++) {
@@ -65,15 +39,15 @@ const createGrid = (key) => {
             boxes.push(smallBox);
 
             //Creando evento de clickeado e intercambio de divs
+            itemSelected = null;
+            clickedItem = null;
+           
             smallBox.addEventListener('click', e => {
 
                 if (itemSelected == null) {
                     itemSelected = e.target;
                 } else {
                     clickedItem = e.target;
-
-                //    if (isAdyacenteBox(itemSelected, clickedItem)) {
-                //        console.log("isAdyacenteBox")
 
                     //Constantes auxiliares que reciben los eventos del if
                     const firstAux = itemSelected.style.top;
@@ -100,54 +74,6 @@ const createGrid = (key) => {
 }
 
 createGrid('difficult')
-
-/*-------------------------Anuncio de bienvenida al juego----------*/
-
-function mostrar() { 
-    swal({
-        title: '¡Bienvenida!',
-        text: "En MatcheADAs tu objetivo es juntar tres o más ítems del mismo tipo, ya sea en fila o columna. Para eso, selecciona un ítem y a continuación un ítem adyacente para intercambiarlos de lugar., Si se forma un grupo, esos ítems se eliminarán y ganarás puntos. ¡Sigue armando grupos de 3 o más antes de que se acabe el tiempo!\n\nControles\n\nClick izquierdo: selección\nEnter o Espacio: selección\nFlechas o WASD: movimiento e intercambio",
-
-        button: ({
-            text: "A  Jugar",
-            confirm: 'Confirm',
-               className:'btn-toPlay',
-               confirmButtonAriaLabel: 'Iniciar el juego',
-         })
-
-    });
-  }
- mostrar();
-
-/*-------------------------Anuncio reiniciar juego----------*/
- 
-function restartGame() {
-     swal({
-         title: '¿Reiniciar Juego?',
-         text: '¡Perderás todo tu puntaje acumulado!',
-
-         buttons: ({
-             cancel: true,
-             confirm: 'Nuevo Juego',
-         })
-
-     })
- }
-
- /*-------------------------clock countdown function----------*/
-window.onload = updateClock;
-
-var totalTime = 30;
-
-function updateClock() {
-    document.getElementById('countdown').innerHTML = totalTime;
-    if (totalTime == 0) {
-        //console.log('Final');
-    } else {
-        totalTime -= 1;
-        setTimeout("updateClock()", 1000);
-    }
-}
 
 //------------------------ match function----------//
  const isAdyacenteBox = (itemSelected, clickedItem) => {
@@ -242,3 +168,5 @@ const checkMatchVertical = () => {
 //     return false;
 
 // };
+
+
