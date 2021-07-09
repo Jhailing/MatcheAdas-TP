@@ -73,7 +73,7 @@ const createGrid = (key) => {
                     clickedItem = e.target;
 
                 //    if (isAdyacenteBox(itemSelected, clickedItem)) {
-                  //      console.log("isAdyacenteBox")
+                //        console.log("isAdyacenteBox")
 
                     //Constantes auxiliares que reciben los eventos del if
                     const firstAux = itemSelected.style.top;
@@ -149,22 +149,22 @@ function updateClock() {
     }
 }
 
-//-------------------------Delete match function----------//
+//------------------------ match function----------//
+ const isAdyacenteBox = (itemSelected, clickedItem) => {
+      const itemSelectedX = number(itemSelected.dataset.x);
+      const itemSelectedY = number(itemSelected.dataset.y);
+      const clickedItemX = number(clickedItem.dataset.x);
+      const clickedItemY = number(clickedItem.dataset.y);
 
-const isAdyacenteBox = (a, b) => {
-    const firstRowX = parseInt(a.dataset.x);
-    const firstColY = parseInt(a.dataset.y);
-    const secondRowX = parseInt(b.dataset.x);
-    const secondColY = parseInt(b.dataset.y);
+      if (itemSelectedX === clickedItemX) {
+        return (itemSelectedY === clickedItemY - 1) || (itemSelectedY  === clickedItemY + 1);
+      } else if (itemSelectedY === clickedItemY) {
+        return (itemSelectedX === clickedItemX- 1) ||(itemSelectedX === clickedItemX + 1);
+      }
+      return false;
+    };
 
-    if (firstRowX === secondRowX) {
-        return firstColY === secondColY - 1 || firstColY === secondColY + 1;
-    } else if (firstColY === secondColY) {
-        return firstRowX === secondRowX - 1 || firstRowX === secondRowX + 1;
-    }
-    return false;
 
-};
 
 //----------------Check si hay match vertical -------------------------//
 const checkMatchVertical = () => {
@@ -225,21 +225,20 @@ const checkMatchVertical = () => {
 
 
     }
-
+}
     // //-----------------------------Otra opción de abyacencias JHAI ----------------------------//
 
-    // const isAdyacenteBox = (itemSelected, clickedItem) => {
-    //   const itemSelectedX = number(itemSelected.dataset.x);
-    //   const itemSelectedY = number(itemSelected.dataset.y);
-    //   const clickedItemX = number(clickedItem.dataset.x);
-    //   const clickedItemY = number(clickedItem.dataset.y);
+// const isAdyacenteBox = (a, b) => {
+//     const firstRowX = parseInt(a.dataset.x);
+//     const firstColY = parseInt(a.dataset.y);
+//     const secondRowX = parseInt(b.dataset.x);
+//     const secondColY = parseInt(b.dataset.y);
 
-    //   if (itemSelectedX === clickedItemX) {
-    //     return (itemSelectedY === clickedItemY - 1) || (itemSelectedY  === clickedItemY + 1);
-    //   } else if (itemSelectedY === clickedItemY) {
-    //     return (itemSelectedX === clickedItemX- 1) ||(itemSelectedX === clickedItemX + 1);
-    //   }
-    //   return false;
-    // };
+//     if (firstRowX === secondRowX) {
+//         return firstColY === secondColY - 1 || firstColY === secondColY + 1;
+//     } else if (firstColY === secondColY) {
+//         return firstRowX === secondRowX - 1 || firstRowX === secondRowX + 1;
+//     }
+//     return false;
 
-}
+// };

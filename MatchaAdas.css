@@ -83,6 +83,16 @@ span {
     justify-content: center;
     align-content: center;
 }
+
+/* .itemSelectec {
+    border: 3px solid lightpink;
+    border-radius: 5px;
+}
+.clickedItem {
+    border: 3px solid lightpink;
+    border-radius: 5px;
+} */
+
 .grid .easy{
     width:  56px;
     height: 56px;
