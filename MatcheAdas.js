@@ -101,53 +101,6 @@ const createGrid = (key) => {
 
 createGrid('difficult')
 
-/*-------------------------Anuncio de bienvenida al juego----------*/
-
-function mostrar() {
-    swal({
-        title: '¡Bienvenida!',
-        text: "En MatcheADAs tu objetivo es juntar tres o más ítems del mismo tipo, ya sea en fila o columna. Para eso, selecciona un ítem y a continuación un ítem adyacente para intercambiarlos de lugar., Si se forma un grupo, esos ítems se eliminarán y ganarás puntos. ¡Sigue armando grupos de 3 o más antes de que se acabe el tiempo!\n\nControles\n\nClick izquierdo: selección\nEnter o Espacio: selección\nFlechas o WASD: movimiento e intercambio",
-
-        button: ({
-            text: "A  Jugar",
-            confirm: 'Confirm',
-            className: 'btn-toPlay',
-            confirmButtonAriaLabel: 'Iniciar el juego',
-        })
-
-    });
-}
-mostrar();
-
-/*-------------------------Anuncio reiniciar juego----------*/
-
-function restartGame() {
-    swal({
-        title: '¿Reiniciar Juego?',
-        text: '¡Perderás todo tu puntaje acumulado!',
-
-        buttons: ({
-            cancel: true,
-            confirm: 'Nuevo Juego',
-        })
-
-    })
-}
-
-/*-------------------------clock countdown function----------*/
-window.onload = updateClock;
-
-var totalTime = 30;
-
-function updateClock() {
-    document.getElementById('countdown').innerHTML = totalTime;
-    if (totalTime == 0) {
-        //console.log('Final');
-    } else {
-        totalTime -= 1;
-        setTimeout("updateClock()", 1000);
-    }
-}
 
 //-------------------------Delete match function----------//
 
