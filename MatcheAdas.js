@@ -127,3 +127,32 @@
     //   return false;
     // };
 
+    //opcion para recorrer horizontales y verticales al mismo tiempo
+    // const getRowMatching = () => {
+    //     const coords = [];
+    //     for (let column = 0; column < level.size; column++) {
+    //       let previous = null;
+    //       let score;
+    //       for (let row = 0; row < level.size; row++) {
+    //         if (previous != dataGrid[column][row]) {
+    //           previous = dataGrid[column][row];
+    //           score = 0;
+    //         } else {
+    //           score++;
+    //         }
+    //         if (score >= 2) {
+    //           let subRow = row;
+    //           while (subRow < dataGrid && previous == dataGrid[column][subRow]) {
+    //             subRow++;
+    //           }
+    //           coords.push([
+    //             [column, row - 2],
+    //             [column, subRow - 1],
+    //           ]);
+    //           score = 0;
+    //         }
+    //       }
+    //     }
+    //     return coords;
+    //   };
+      
