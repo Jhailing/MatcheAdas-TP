@@ -64,6 +64,16 @@ span {
     font-size: 20px;
     color: white; 
 }
+#btn-restart{
+    transform: rotate(0);
+    transition: 0.4s;
+}
+#btn-restart:focus-within i,
+#btn-restart:hover i {
+  transform: rotate(-180deg);
+  transition: 0.4s;
+}
+
 
 /** GRILLA ***/
 .container-grid{
@@ -78,10 +88,12 @@ span {
     position: relative; 
     width: 100%;
     height: 500px;
-    border: 3px solid lightpink; 
+    border: 3px solid rgba(236, 201, 207, 0.500); 
     border-radius: 8px;
     justify-content: center;
     align-content: center;
+    background-color: rgba(236, 201, 207, 0.500);
+    
 }
 .grid .easy{
     width:  56px;
@@ -93,6 +105,8 @@ span {
     cursor: pointer;
     transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s,
     right 0.4s, transform 0.2s;
+    
+    
 }
 .grid .normal{
     width:  63px;
@@ -104,6 +118,7 @@ span {
     cursor: pointer;
     transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s,
     right 0.4s, transform 0.2s;
+   
 }
 .grid .difficult{
     width: 72px;
@@ -115,7 +130,13 @@ span {
     cursor: pointer;
     transition: top 0.4s, left 0.4s, bottom 0.4s,
     right 0.4s, transform 0.2s;
+  
 }
+  
+.selected {
+    border: 2px solid lightpink
+  }
+  
 
 /* CONTAINER TIEMPO DEL JUEGO **/
 .div-time {

@@ -11,16 +11,18 @@ function updateClock() {
 
     } else if (totalTime >= 0) {
         countDown.innerHTML = `0:0${totalTime}`;
-    }
+    } 
     totalTime--;
 }
 setInterval("updateClock()", 1000);
 
 
+
 //Arrays de emojis
 const emojiRose = ['🐷', '🌷', '💗', '🤰🏾', '🧠', '👄'];
-
-
+let score = 0;
+let combo = 1;
+let animacion = 2000
 //Constante en donde guardo todas las características del tamaño de la matriz
 
 const levels = [{
@@ -70,7 +72,6 @@ const createGrid = (key) => {
     console.log(dataGrid);
 }
 
-
 const showGrid = () => {
     mainGrid.innerHTML = '';
     //Mediante ambos "for" estoy generando, cantidad de columnas como de filas y orden aleatorio
@@ -80,6 +81,7 @@ const showGrid = () => {
             const emojiValue = dataGrid[row][column];
             smallBox.innerHTML = emojiValue !== null ? emojiRose[emojiValue] : '';
             smallBox.className = level.key;
+            smallBox.classList.add('smallBox');
 
             //Generando estilos a los divs 
             smallBox.style.position = 'absolute';
@@ -93,7 +95,8 @@ const showGrid = () => {
 
             mainGrid.appendChild(smallBox);
 
-            smallBox.addEventListener('click', eventClick);
+            smallBox.addEventListener('click', swapSquares);
+
         }
     }
 }
@@ -102,32 +105,71 @@ const showGrid = () => {
 let itemSelected = null;
 let clickedItem = null;
 
-
-const eventClick = (e) => {
+const swapSquares = (e) => {
     if (itemSelected == null) {
         itemSelected = e.target;
     } else {
         clickedItem = e.target;
 
         //Constantes auxiliares que reciben los eventos del if
-        const firstAux = itemSelected.style.top;
-        const secondAux = itemSelected.style.left;
+        let firstAux = itemSelected.style.top;
+        let secondAux = itemSelected.style.left;
 
         itemSelected.style.top = clickedItem.style.top;
         itemSelected.style.left = clickedItem.style.left;
 
-
         //Generar variable auxiliar para almacenar el clicked
         clickedItem.style.top = firstAux;
         clickedItem.style.left = secondAux;
-        
+
         itemSelected = null;
         clickedItem = null;
     }
 }
 
+// const moveItem = (direction) => {
+//     let x = number(smallBox.style.top);
+//     let y = number(smallBox.style.left);
 
-const deleteMatches = (row) => {
+//     switch (direction) {
+//       case 'top': {
+//         y = y === 0 ? level.size - 1 : y - 1
+//         break
+//       }
+//       case 'left': {
+//         x = x === 0 ? level.size - 1 : x - 1
+//         break
+//       }
+//       case 'down': {
+//         y = y === level.size - 1 ? 0 : y + 1
+//         break
+//       }
+//       case 'right': {
+//         x = x === level.size - 1 ? 0 : x + 1
+//         break
+//       }
+//     }
+//   swapSquares();
+// }
+
+//Actualizar Puntos
+const toUpDateScore = () =>{
+    document.getElementById('score').innerHTML = score;
+}
+
+//Modificar Combo
+const addCombo = () => {
+    combo++;
+    document.getElementById('combo').innerHTML = combo;
+}
+
+//Reanudar Combo
+const restartCombo = () => {
+    combo = 1
+    document.getElementById('combo').innerHTML = combo;
+}
+
+const getMatches = (row) => {
     let indexMatches = [0];
     let lastItem = row[0];
     let newRow = [];
@@ -137,6 +179,7 @@ const deleteMatches = (row) => {
         let currentItem = row[i];
 
         if (currentItem == lastItem) {
+
             indexMatches.push(i);
         } else {
             if (indexMatches.length > 2) {
@@ -150,6 +193,8 @@ const deleteMatches = (row) => {
 
         lastItem = currentItem;
     }
+    console.log(indexResult);
+
 
     for (let i = 0; i < row.length; i++) {
         if (!indexResult.includes(i)) {
@@ -161,13 +206,24 @@ const deleteMatches = (row) => {
     return newRow;
 }
 
-
-const doMatches = () => {
+//Hacer match y delete horizontal
+const doMatchesRow = () => {
     for (let i = 0; i < dataGrid.length; i++) {
         let row = dataGrid[i];
-        let newRow = deleteMatches(row);
+        let newRow = getMatches(row);
         dataGrid[i] = newRow;
+        // setTimeout(() => {
+        //     score += 100 * addCombo;
+        //     toUpDateScore();
+        //     addCombo();
+        // },2000)
+  }
     }
+    //smallBox.classList.add('eliminado');
+    showGrid();
+
+
+const doMatchesCol = () => {
     //Invertir matriz dataGrid
     let dataGridInverted = [];
     for (let column = 0; column < level.size; column++) {
@@ -179,13 +235,22 @@ const doMatches = () => {
     }
     console.log('dataGridInverted');
     console.log(dataGridInverted);
-    
-    //Hacer match
+
+    //  Hacer match  y delete vertical
     for (let i = 0; i < dataGridInverted.length; i++) {
         let row = dataGridInverted[i];
-        let newRow = deleteMatches(row);
+        let newRow = getMatches(row);
         dataGridInverted[i] = newRow;
+        // setTimeout(() => {
+        //     score += 100 * addCombo;
+        //     toUpDateScore();
+        //     addCombo();
+        // },2000)
+  }
     }
+    showGrid();
+
+
     //Actualizando matriz dataGridInverted
     for (let column = 0; column < level.size; column++) {
         let rows = [];
@@ -194,15 +259,24 @@ const doMatches = () => {
         }
         dataGrid[column] = rows;
     }
-    console.log(dataGrid);
-    showGrid();
-    return 'OK';
-}
+ 
+
+
+//  Cubriendo espacios vacios
+// const coverSpaces = () => {
+//     for (let row = 0; row < dataGrid.length; row++) {
+//       for (let column = 0; column < dataGrid[row].length; column++) {
+//         if (dataGrid[row][column] === "") {
+//           dataGrid[row][column] = createGrid();
+//         }
+//       }
+//     }
+//     showGrid();
+//   }
+
+
+
 //Ejecutando el juego
 createGrid('easy');
 showGrid();
-//doRowMatches();
-//doColumnMatches();
-
-
 
