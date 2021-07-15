@@ -1,34 +1,19 @@
-/*-------------------------clock countdown function----------*/
-window.onload = updateClock;
-
-let totalTime = 30;
-
-function updateClock() {
-    const countDown = document.getElementById('countdown');
-
-    if (totalTime >= 10) {
-        countDown.innerHTML = `0:${totalTime}`;
-
-    } else if (totalTime >= 0) {
-        countDown.innerHTML = `0:0${totalTime}`;
-    } 
-    totalTime--;
-}
-setInterval("updateClock()", 1000);
-
-
-
-//Arrays de emojis
-const emojiRose = ['🐷', '🌷', '💗', '🤰🏾', '🧠', '👄'];
+/*-------------------Constantes de Juego----------*/
 let score = 0;
 let combo = 1;
-let animacion = 2000
-//Constante en donde guardo todas las características del tamaño de la matriz
 
+let itemSelected = null;
+let clickedItem = null;
+
+const removeCell = "❌";
+
+const emojiRose = [removeCell, '🌞', '🌸', '💗', '🤰🏾', '🍹', '💋'];
+
+//Constante en donde guardo todas las características del tamaño de la matriz
 const levels = [{
-    key: 'easy',
+    key: 'facil',
     size: 9,
-    label: 'facil',
+    label: 'easy',
     fontSize: 30,
     itemSize: 56
 },
@@ -40,46 +25,77 @@ const levels = [{
     itemSize: 62
 },
 {
-    key: 'difficult',
+    key: 'dificil',
     size: 7,
-    label: 'Dificil',
+    label: 'difficult',
     fontSize: 35,
     itemSize: 72
 }
 ]
 
-//Llamando la grilla principal
+/*-------------------clock countdown function------------------*/
+
+let totalTime = 30;
+
+    function updateClock() {
+        const countDown = document.getElementById('countdown');
+    
+        if (totalTime >= 10) {
+            countDown.innerHTML = `0:${totalTime}`;
+    
+        } else if (totalTime >= 0) {
+            countDown.innerHTML = `0:0${totalTime}`;
+        }
+        totalTime--;
+    }
+    setInterval("updateClock()", 1000);
+
+
+/*-------------------Comparando valores para invertir la matriz----------*/
+const areSimilar = (a, b) => Math.abs(a) === Math.abs(b);
+
+const invertValue = (value) => (value > 0 ? value * -1 : value);
+
+/*-------------------Generando orden aleatorio ----------*/
+const getRandomInt = (min, max) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const getRandomItemId = () => getRandomInt(1, emojiRose.length - 1);
+
+/*-------------------Creando grilla principal----------*/
 const mainGrid = document.querySelector('.grid');
-let dataGrid = [];
+let grid = [];
 let level;
 
-//Creando la grilla principal
 const createGrid = (key) => {
 
-    //Constante que genera el array de dificultad
-    level = levels.filter(l => l.key === key)[0];
+    level = levels.filter(l => l.key === key)[0]; //Ayuda a generar cualquier dato de mi array de objetos
 
-    //Generando grid
-
-    //Mediante ambos "for" estoy generando, cantidad de columnas como de filas en orden aleatorio
-    for (let column = 0; column < level.size; column++) {
-        let rows = [];
+    for (let column = 0; column < level.size; column++) { //Generando cantidad de columnas como de filas en orden aleatorio
+        let cells = [];
         for (let row = 0; row < level.size; row++) {
-            rows[row] = Math.floor(Math.random() * emojiRose.length);
+            cells.push(getRandomItemId());
         }
-        dataGrid[column] = rows;
+        grid[column] = cells;
     }
-    console.log(dataGrid);
+    return grid;
+    console.log('grid');
+    console.log(grid);
 }
 
+
+/*-------------------Creando Elemento "div" y emoji ----------------*/
 const showGrid = () => {
     mainGrid.innerHTML = '';
-    //Mediante ambos "for" estoy generando, cantidad de columnas como de filas y orden aleatorio
+
     for (let column = 0; column < level.size; column++) {
         for (let row = 0; row < level.size; row++) {
             const smallBox = document.createElement('div');
-            const emojiValue = dataGrid[row][column];
-            smallBox.innerHTML = emojiValue !== null ? emojiRose[emojiValue] : '';
+            const emojiValue = grid[row][column];
+            smallBox.innerHTML = emojiRose[emojiValue];
             smallBox.className = level.key;
             smallBox.classList.add('smallBox');
 
@@ -90,193 +106,159 @@ const showGrid = () => {
             smallBox.style.fontSize = `${level.fontSize}px`;
             smallBox.style.display = 'flex';
 
+            //Atributos Data
             smallBox.setAttribute('data-x', column);
             smallBox.setAttribute('data-y', row);
 
             mainGrid.appendChild(smallBox);
 
             smallBox.addEventListener('click', swapSquares);
-
         }
     }
+    return showGrid;
 }
 
-//Evento de clickeado e intercambio de divs
-let itemSelected = null;
-let clickedItem = null;
-
+/*------Evento de intercambio de divs si son cuadros adyacentes -------*/
 const swapSquares = (e) => {
     if (itemSelected == null) {
         itemSelected = e.target;
     } else {
         clickedItem = e.target;
+        let x0 = Number(itemSelected.dataset.x);
+        let y0 = Number(itemSelected.dataset.y);
+        let x1 = Number(clickedItem.dataset.x);
+        let y1 = Number(clickedItem.dataset.y);
 
-        //Constantes auxiliares que reciben los eventos del if
-        let firstAux = itemSelected.style.top;
-        let secondAux = itemSelected.style.left;
+        if (((x1 == x0 - 1 || x1 == x0 + 1) && y1 == y0) || ((y1 == y0 - 1 || y1 == y0 + 1) && x1 == x0)) {
+            //Constantes auxiliares que reciben los eventos del if
+            let firstAux = itemSelected.style.top;
+            let secondAux = itemSelected.style.left;
 
-        itemSelected.style.top = clickedItem.style.top;
-        itemSelected.style.left = clickedItem.style.left;
+            itemSelected.style.top = clickedItem.style.top;
+            itemSelected.style.left = clickedItem.style.left;
 
-        //Generar variable auxiliar para almacenar el clicked
-        clickedItem.style.top = firstAux;
-        clickedItem.style.left = secondAux;
-
+            //Generar variable auxiliar para almacenar el clicked
+            clickedItem.style.top = firstAux;
+            clickedItem.style.left = secondAux;
+        }
         itemSelected = null;
         clickedItem = null;
+    } 
+
     }
-}
 
-// const moveItem = (direction) => {
-//     let x = number(smallBox.style.top);
-//     let y = number(smallBox.style.left);
-
-//     switch (direction) {
-//       case 'top': {
-//         y = y === 0 ? level.size - 1 : y - 1
-//         break
-//       }
-//       case 'left': {
-//         x = x === 0 ? level.size - 1 : x - 1
-//         break
-//       }
-//       case 'down': {
-//         y = y === level.size - 1 ? 0 : y + 1
-//         break
-//       }
-//       case 'right': {
-//         x = x === level.size - 1 ? 0 : x + 1
-//         break
-//       }
-//     }
-//   swapSquares();
-// }
-
-//Actualizar Puntos
-const toUpDateScore = () =>{
-    document.getElementById('score').innerHTML = score;
-}
-
-//Modificar Combo
-const addCombo = () => {
-    combo++;
-    document.getElementById('combo').innerHTML = combo;
-}
-
-//Reanudar Combo
-const restartCombo = () => {
-    combo = 1
-    document.getElementById('combo').innerHTML = combo;
-}
-
+/*------------------------Buscando matches -------------------------*/
 const getMatches = (row) => {
     let indexMatches = [0];
+    let indexResult = [];
     let lastItem = row[0];
     let newRow = [];
-    let indexResult = [];
 
     for (let i = 1; i < row.length; i++) {
         let currentItem = row[i];
 
-        if (currentItem == lastItem) {
-
+        if (areSimilar(currentItem, lastItem)) {
             indexMatches.push(i);
         } else {
-            if (indexMatches.length > 2) {
+            if (indexMatches.length >= 3) {
                 indexResult = indexResult.concat(indexMatches);
             }
             indexMatches = [i];
         }
-        if (i == row.length - 1 && indexMatches.length > 2) {
+        if (i == row.length - 1 && indexMatches.length >= 3) {
             indexResult = indexResult.concat(indexMatches);
         }
 
         lastItem = currentItem;
     }
-    console.log(indexResult);
 
-
+    // indexResult = [2,3,4] ; row = [10,5,2,2,2,5] ===> newRow = [10,5,-2,-2,-2,5]
     for (let i = 0; i < row.length; i++) {
         if (!indexResult.includes(i)) {
             newRow.push(row[i]);
         } else {
-            newRow.push(null);
+            newRow.push(invertValue(row[i]));
         }
     }
     return newRow;
 }
 
-//Hacer match y delete horizontal
-const doMatchesRow = () => {
-    for (let i = 0; i < dataGrid.length; i++) {
-        let row = dataGrid[i];
-        let newRow = getMatches(row);
-        dataGrid[i] = newRow;
-        // setTimeout(() => {
-        //     score += 100 * addCombo;
-        //     toUpDateScore();
-        //     addCombo();
-        // },2000)
-  }
-    }
-    //smallBox.classList.add('eliminado');
-    showGrid();
-
-
-const doMatchesCol = () => {
-    //Invertir matriz dataGrid
-    let dataGridInverted = [];
-    for (let column = 0; column < level.size; column++) {
-        let rows = [];
-        for (let row = 0; row < level.size; row++) {
-            rows.push(dataGrid[row][column]);
+/*--------------Invirtiendo Grilla Horizontal - Vertical------------*/
+const getInvertedGrid = () => {
+    let invertedGrid = [];
+    for (let row = 0; row < level.size; row++) {
+        let cells = [];
+        for (let column = 0; column < level.size; column++) {
+            cells.push(grid[column][row]);
         }
-        dataGridInverted[column] = rows;
+        invertedGrid[row] = cells;
     }
-    console.log('dataGridInverted');
-    console.log(dataGridInverted);
+    return invertedGrid;
+};
 
-    //  Hacer match  y delete vertical
-    for (let i = 0; i < dataGridInverted.length; i++) {
-        let row = dataGridInverted[i];
-        let newRow = getMatches(row);
-        dataGridInverted[i] = newRow;
-        // setTimeout(() => {
-        //     score += 100 * addCombo;
-        //     toUpDateScore();
-        //     addCombo();
-        // },2000)
-  }
-    }
-    showGrid();
-
-
-    //Actualizando matriz dataGridInverted
+const removeMatches = () => {
+    let cleanedGrid = grid;
     for (let column = 0; column < level.size; column++) {
-        let rows = [];
         for (let row = 0; row < level.size; row++) {
-            rows.push(dataGridInverted[row][column]);
+            let item = grid[column][row];
+            cleanedGrid[column][row] = item < 0 ? 0 : item;
         }
-        dataGrid[column] = rows;
     }
- 
+    return cleanedGrid;
+};
 
+//let gridForInverted = createGrid();
 
-//  Cubriendo espacios vacios
+/*--------------Invierte-elimina match------------*/
+// const checkGridMatches = () => {
+
+//     let invertedGrid = getInvertedGrid(gridForInverted);
+
+//     for (let i = 0; i < invertedGrid.length; i++) {
+//         invertedGrid[i] = getMatches(invertedGrid[i]);
+//     }
+
+//     let matchedGrid = getInvertedGrid(invertedGrid);
+
+//     for (let i = 0; i < matchedGrid.length; i++) {
+//         matchedGrid[i] = getMatches(matchedGrid[i]);
+//     }
+
+//     let deletedGrid = removeMatches(matchedGrid);
+//     showGrid(gridForInverted);
+//     showGrid(deletedGrid);
+// };
+
+// if (checkGridMatches()){
+//     smallBox.classList.add('removed')
+//     setTimeout(() => {
+        //             score += 100 * addCombo;
+        //             toUpDateScore();
+        //             addCombo();
+        //         }, 2000)
+//}
+
+/*--------------------Cubriendo espacios vacios------------------*/
 // const coverSpaces = () => {
-//     for (let row = 0; row < dataGrid.length; row++) {
-//       for (let column = 0; column < dataGrid[row].length; column++) {
-//         if (dataGrid[row][column] === "") {
-//           dataGrid[row][column] = createGrid();
+//     for (let row = 0; row < grid.length; row++) {
+//         for (let column = 0; column < grid.length; column++) {
+//             if (grid[row][column] === removeCell) {
+//                 grid[row][column] = createGrid(key);
+//             }
 //         }
-//       }
 //     }
 //     showGrid();
-//   }
+// }
 
 
-
-//Ejecutando el juego
-createGrid('easy');
+/*--------------------Ejecutando el Juego------------------*/
+createGrid('facil');
+console.log(getInvertedGrid());
+console.log(removeMatches());
+//checkGridMatches();
 showGrid();
+
+
+
+
 
