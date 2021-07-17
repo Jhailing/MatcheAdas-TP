@@ -1,9 +1,7 @@
 /*-------------------Constantes de Juego----------*/
 let score = 0;
 let combo = 1;
-
-let itemSelected = null;
-let clickedItem = null;
+let totalTime = 30;
 
 const removeCell = "❌";
 
@@ -33,23 +31,6 @@ const levels = [{
 }
 ]
 
-/*-------------------clock countdown function------------------*/
-
-let totalTime = 30;
-
-    function updateClock() {
-        const countDown = document.getElementById('countdown');
-    
-        if (totalTime >= 10) {
-            countDown.innerHTML = `0:${totalTime}`;
-    
-        } else if (totalTime >= 0) {
-            countDown.innerHTML = `0:0${totalTime}`;
-        }
-        totalTime--;
-    }
-    setInterval("updateClock()", 1000);
-
 
 /*-------------------Comparando valores para invertir la matriz----------*/
 const areSimilar = (a, b) => Math.abs(a) === Math.abs(b);
@@ -67,23 +48,28 @@ const getRandomItemId = () => getRandomInt(1, emojiRose.length - 1);
 
 /*-------------------Creando grilla principal----------*/
 const mainGrid = document.querySelector('.grid');
-let grid = [];
+
 let level;
+let levelKeySelected = 'facil';
+let dataGrid = [];
 
-const createGrid = (key) => {
+const setLevel = (levelKey) => {
+    levelKeySelected = levelKey;
+}
 
-    level = levels.filter(l => l.key === key)[0]; //Ayuda a generar cualquier dato de mi array de objetos
+const createGrid = () => {
+    level = levels.filter(l => l.key === levelKeySelected)[0]; //Ayuda a generar cualquier dato de mi array de objetos
 
     for (let column = 0; column < level.size; column++) { //Generando cantidad de columnas como de filas en orden aleatorio
         let cells = [];
         for (let row = 0; row < level.size; row++) {
             cells.push(getRandomItemId());
         }
-        grid[column] = cells;
+        dataGrid[column] = cells;
     }
-    return grid;
-    console.log('grid');
-    console.log(grid);
+    console.log('dataGrid');
+    console.log(dataGrid);
+    return dataGrid;
 }
 
 
@@ -94,7 +80,7 @@ const showGrid = () => {
     for (let column = 0; column < level.size; column++) {
         for (let row = 0; row < level.size; row++) {
             const smallBox = document.createElement('div');
-            const emojiValue = grid[row][column];
+            const emojiValue = dataGrid[row][column];
             smallBox.innerHTML = emojiRose[emojiValue];
             smallBox.className = level.key;
             smallBox.classList.add('smallBox');
@@ -119,7 +105,11 @@ const showGrid = () => {
 }
 
 /*------Evento de intercambio de divs si son cuadros adyacentes -------*/
+let itemSelected = null;
+let clickedItem = null;
+
 const swapSquares = (e) => {
+
     if (itemSelected == null) {
         itemSelected = e.target;
     } else {
@@ -143,9 +133,8 @@ const swapSquares = (e) => {
         }
         itemSelected = null;
         clickedItem = null;
-    } 
-
     }
+}
 
 /*------------------------Buscando matches -------------------------*/
 const getMatches = (row) => {
@@ -184,7 +173,7 @@ const getMatches = (row) => {
 }
 
 /*--------------Invirtiendo Grilla Horizontal - Vertical------------*/
-const getInvertedGrid = () => {
+const getInvertedGrid = (grid) => {
     let invertedGrid = [];
     for (let row = 0; row < level.size; row++) {
         let cells = [];
@@ -196,7 +185,7 @@ const getInvertedGrid = () => {
     return invertedGrid;
 };
 
-const removeMatches = () => {
+const removeMatches = (grid) => {
     let cleanedGrid = grid;
     for (let column = 0; column < level.size; column++) {
         for (let row = 0; row < level.size; row++) {
@@ -207,56 +196,57 @@ const removeMatches = () => {
     return cleanedGrid;
 };
 
-//let gridForInverted = createGrid();
-
 /*--------------Invierte-elimina match------------*/
-// const checkGridMatches = () => {
+const checkGridMatches = () => {
+    let invertedGrid = getInvertedGrid(dataGrid);
 
-//     let invertedGrid = getInvertedGrid(gridForInverted);
+    for (let i = 0; i < invertedGrid.length; i++) {
+        invertedGrid[i] = getMatches(invertedGrid[i]);
+    }
 
-//     for (let i = 0; i < invertedGrid.length; i++) {
-//         invertedGrid[i] = getMatches(invertedGrid[i]);
-//     }
+    let matchedGrid = getInvertedGrid(invertedGrid);
 
-//     let matchedGrid = getInvertedGrid(invertedGrid);
+    for (let i = 0; i < matchedGrid.length; i++) {
+        matchedGrid[i] = getMatches(matchedGrid[i]);
+    }
 
-//     for (let i = 0; i < matchedGrid.length; i++) {
-//         matchedGrid[i] = getMatches(matchedGrid[i]);
-//     }
+    dataGrid = removeMatches(matchedGrid);
 
-//     let deletedGrid = removeMatches(matchedGrid);
-//     showGrid(gridForInverted);
-//     showGrid(deletedGrid);
-// };
-
-// if (checkGridMatches()){
-//     smallBox.classList.add('removed')
-//     setTimeout(() => {
-        //             score += 100 * addCombo;
-        //             toUpDateScore();
-        //             addCombo();
-        //         }, 2000)
-//}
+    showGrid();
+};
 
 /*--------------------Cubriendo espacios vacios------------------*/
-// const coverSpaces = () => {
-//     for (let row = 0; row < grid.length; row++) {
-//         for (let column = 0; column < grid.length; column++) {
-//             if (grid[row][column] === removeCell) {
-//                 grid[row][column] = createGrid(key);
-//             }
-//         }
-//     }
-//     showGrid();
-// }
+const coverSpaces = () => {
+    for (let row = 0; row < dataGrid.length; row++) {
+        for (let column = 0; column < dataGrid.length; column++) {
+            if (dataGrid[row][column] === 0) {
+                dataGrid[row][column] = getRandomItemId();
+            }
+        }
+    }
+    showGrid();
+}
 
+/*-------------------clock countdown function------------------*/
+const updateClock = () => {
+    const countDown = document.getElementById('countdown');
 
+    if (totalTime >= 10) {
+        countDown.innerHTML = `0:${totalTime}`;
+    } else if (totalTime >= 0) {
+        countDown.innerHTML = `0:0${totalTime}`;
+    }
+    totalTime--;
+}
+setInterval("updateClock()", 1000);
 /*--------------------Ejecutando el Juego------------------*/
-createGrid('facil');
-console.log(getInvertedGrid());
-console.log(removeMatches());
-//checkGridMatches();
+createGrid();
+
 showGrid();
+
+
+
+
 
 
 
