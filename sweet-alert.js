@@ -14,10 +14,11 @@ const mostrar = () => {
     });
   }
   mostrar();
+  
  
  
-
-  function newGame() {
+/*-------------------------Selecciona el nivel de dificultad del juego----------*/
+  const newGame =()=> {
     swal({
         title: 'Nuevo Juego',
         text: 'Selecciona una dificultad',
@@ -39,35 +40,30 @@ const mostrar = () => {
               className: 'btn-newGame',
         },    
         }
-    // }).then((value) => {
-    //   switch (value) {
-    //     case "easy":
-    //       level.size; 
-    //       level.itemSize; 
-    //       createGrid(key);
-    //       showGrid();
-    //       break;
+    }).then((value) => {
+      switch (value) {
+        case "easy":
+          setLevel('facil');
+          createGrid();
+          showGrid();
+          break;
      
-    //     case "normal":
-    //       level.size; 
-    //       level.itemSize; 
-    //       createGrid(key);
-    //       showGrid();
-    //       break;
+        case "normal":
+          setLevel('normal');
+          createGrid();
+          showGrid();
+          break;
      
-    //     case "difficult":
-    //       level.size; 
-    //       level.itemSize;
-    //       createGrid(key);
-    //       showGrid();
-    //       break;
-    //   }
+        case "difficult":
+          setLevel('dificil');
+          createGrid();
+          showGrid();
+          break;
+      }
     });
   }
 
 
-
-  
 /*-------------------------Anuncio reiniciar juego----------*/
  
 function restartGame() {
