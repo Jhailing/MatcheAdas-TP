@@ -48,11 +48,9 @@ const gameCountdown = () => {
             countDown.innerHTML = `0:0${gameSeconds}`;
         }
         gameSeconds--;
-        if (gameSeconds == 0) {
+        if (gameSeconds == -1) {
+            clearInterval(counter);
             endGame();
-            gameSeconds = 30;
-            gameSeconds--;
-
         }
     }, 1000);
 }

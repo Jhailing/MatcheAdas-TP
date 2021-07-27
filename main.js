@@ -62,7 +62,7 @@ const createGrid = () => {
         }
         dataGrid[column] = cells;
     }
-    
+    console.log(dataGrid);
     return dataGrid;
 }
 
@@ -209,23 +209,23 @@ const swapSquares = (e) => {
 //         }
 //     }
 
-
-const downItems=(dataGrid)=>{
-    let items=0;
-    while (items<10){
-        for (let i=0; i<dataGrid.length-1; i++){
-            for(let j=0; j<dataGrid[i].length; j++){
-                if(dataGrid[i+1][j]===''){
-                    matriz[i+1][j]=matriz[i][j]
-                    matriz[i][j]=''
-                  
-                }
-            }
-        }
-    items++
-    };
-}
-
+//Descender items
+// const itemsDown = (dataGrid) => {
+//     for (let i = dataGrid; i >= 0; i--) {
+//         let columnDown = document.querySelectorAll(`[data-col="${i}"]`)
+//         for (let j = columnDown.length - 1; j >= 0; j--) {
+//             if (columnDown[j] === 0) {
+//                 for (let k = j; k >= 0; k--) {
+//                     if (columnDown[k] !== 0) {
+//                         columnDown[j] = columnDown[k];
+//                         columnDown[k] = 0;
+//                         break;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 /*------------------------Buscando matches -------------------------*/
 const getMatches = (row) => {
@@ -274,21 +274,21 @@ const getInvertedGrid = (grid) => {
         }
         invertedGrid[row] = cells;
     }
+    
     return invertedGrid;
+    
 };
 
 const removeMatches = (grid) => {
     let cleanedGrid = grid;
     for (let column = 0; column < level.size; column++) {
         score += 100
-      //  toUpDateScore();
         for (let row = 0; row < level.size; row++) {
             let item = grid[column][row];
             cleanedGrid[column][row] = item < 0 ? 0 : item;
             
         }
     }
-
     return cleanedGrid;
 };
 
@@ -326,9 +326,6 @@ const coverSpaces = () => {
     showGrid();
 }
 
-
-
-  
 /*--------------------Ejecutando el Juego------------------*/
    createGrid();
    showGrid();
