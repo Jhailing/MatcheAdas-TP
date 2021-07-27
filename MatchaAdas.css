@@ -1,5 +1,10 @@
 * {
     @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+        /* transition: all 3000ms ease;
+        -webkit-transition: all 3000ms ease;
+        -moz-transition: all 3000ms ease;
+        -ms-transition: all 3000ms ease;
+        -o-transition: all 3000ms ease; */
 }
 
 body {
@@ -103,8 +108,8 @@ span {
     align-items: center;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.4s, top 0.4s, left 0.4s, bottom 0.4s,
-    right 0.4s, transform 0.2s;
+    transition: top 0.5s, left 0.5s; 
+    transform: 0.2s;
     font-size: 35px;
     
 }
@@ -130,16 +135,17 @@ span {
     border-radius: 5px;
     cursor: pointer;
     transition: top 0.4s, left 0.4s, bottom 0.4s,
-    right 0.4s, transform 0.2s;
+    right 0.4s; 
+    /* transform: 4s; */
     font-size: 35px;
-  
+    /* transform: scale(1);   */
+    transition: all 3000ms ease;
+        -webkit-transition: all 3000ms ease;
+        -moz-transition: all 3000ms ease;
+        -ms-transition: all 3000ms ease;
+        -o-transition: all 3000ms ease;
+    
 }
-.removed {
-    transform: scale(0);
-}  
-.selected {
-    border: 2px solid lightpink
-  }
   
 
 /* CONTAINER TIEMPO DEL JUEGO **/
@@ -186,8 +192,8 @@ span {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 18px;
 }
-.btn-toPlay:hover{ /*(Aun no funciona)*/
-    background-color:rgb(255, 0, 179);
+.btn-toPlay:hover{ 
+    background-color: #c2185b;
 }
 .btn-newGame{
     background-color:rgb(255, 0, 179);
@@ -199,3 +205,19 @@ span {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 18px;
 }
+.btn-newGame:hover{
+    background-color: #c2185b;
+}
+.btn-restartGame:hover{
+    background-color: #c2185b;
+}
+.button--Cancelar{
+    background-color: #eeeeee;
+    color: #000;
+}
+.button--Cancelar:hover{
+    background-color: #e0e0e0;
+}
+
+
+
