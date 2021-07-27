@@ -1,49 +1,75 @@
-//Actualizar Puntos
-const toUpDateScore = () => {
-    document.getElementById('score').innerHTML = score;
-}
+//-----------Modificar Combo y Reanudar Combo------------------//
+const comboGame = document.getElementById('combo');
+let combo = 1;
 
-//Modificar Combo
 const addCombo = () => {
-    combo++;
-    document.getElementById('combo').innerHTML = combo;
+    comboGame.innerHTML = combo;
+    combo++; 
 }
 
-//Reanudar Combo
 const restartCombo = () => {
     combo = 1
-    document.getElementById('combo').innerHTML = combo;
-}
-
-const initializeGrid = () => {
-    do {
-      createGrid();
-    } while (getMatches())
-  
-    showGrid();
-  }
-
-  const startGame = () => {
-    score = 0;
-    toUpDateScore();
-    restartCombo();
-    initializeGrid();
+    comboGame.innerHTML = combo;
 }
 
 
-const initializeModals = () => {
-    document.addEventListener('click', () => {
-        mostrar();
-        newGame();
-        startGame();
-    })
-    ('.btn-newGame').addEventListener('click', startGame());
-    ('.btn-restartGame').addEventListener('click', newGame());    
+/*-----------------Función Puntaje----------------*/
+
+const scoreGame = document.getElementById('score').innerHTML;
+let score = 0;
+
+const scoreSum = (dataGrid) => {
+    for (let i = 0; i < dataGrid.length; i++) {
+        for (let j = 0; j < dataGrid[i].length; j++) {
+            if (dataGrid[i][j] == '') {
+                score++;
+            }
+        }
+    }
+    scoreGame.innerHTML = score * 100;
+    console.log(score)
+};
+
+const resetScore = () => {
+    scoreGame.innerHTML = 0;
 }
- 
-const starGame = () => {
-    initializeModals();
-    initializeGrid();
+
+/*-----------------Función puntaje del juego----------------*/
+const countDown = document.getElementById('countdown');
+let gameSeconds = 30;
+let counterSecond;
+let counter;
+
+const gameCountdown = () => {
+    counter = setInterval(() => {
+        if (gameSeconds >= 10) {
+            countDown.innerHTML = `0:${gameSeconds}`;
+        } else if (gameSeconds >= 0) {
+            countDown.innerHTML = `0:0${gameSeconds}`;
+        }
+        gameSeconds--;
+        if (gameSeconds == 0) {
+            endGame();
+            gameSeconds = 30;
+            gameSeconds--;
+
+        }
+    }, 1000);
 }
+
+
+// const initializeGrid = () => {
+//     do {
+//       createGrid();
+//     } while (checkGridMatches())
+//        coverSpace();
+//     showGrid();
+//   }
+
+// const startGame = () => {
+//     score = 0;
+//     restartCombo();
+//     initializeGrid();
+// }
 
 //window.onload = startGame;
