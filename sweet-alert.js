@@ -188,7 +188,6 @@ const endGame = () => {
   }).then((value) => {
     switch (value) {
       case "againPlay":
-        clearInterval(gameSeconds);
         swal({
           title: 'Nuevo Juego',
           text: 'Selecciona una dificultad',
@@ -219,6 +218,7 @@ const endGame = () => {
               showGrid();
               gameSeconds = 30;
               gameSeconds--;
+              gameCountdown();
               break;
 
             case "normal":
@@ -227,6 +227,7 @@ const endGame = () => {
               showGrid();
               gameSeconds = 30;
               gameSeconds--;
+              gameCountdown();
               break;
 
             case "difficult":
@@ -235,17 +236,18 @@ const endGame = () => {
               showGrid();
               gameSeconds = 30;
               gameSeconds--;
+              gameCountdown();
               break;
           }
 
         });
         break;
       case "Restart":
-        clearInterval(gameSeconds);
         createGrid();
         showGrid();
         gameSeconds = 30;
         gameSeconds--;
+        gameCountdown();
         break;
     }
   });
