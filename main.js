@@ -128,7 +128,10 @@ const swapSquares = (e) => {
         }
         itemSelected = null;
         clickedItem = null;
+        e.preventDefault();
     }
+
+    
 }
 
 //Posible solucion para le intercambio de divs desde el browser
