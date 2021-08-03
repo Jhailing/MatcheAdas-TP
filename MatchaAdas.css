@@ -1,10 +1,10 @@
 * {
     @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-        /* transition: all 3000ms ease;
+        transition: all 3000ms ease;
         -webkit-transition: all 3000ms ease;
         -moz-transition: all 3000ms ease;
         -ms-transition: all 3000ms ease;
-        -o-transition: all 3000ms ease; */
+        -o-transition: all 3000ms ease;
 }
 
 body {
@@ -220,4 +220,54 @@ span {
 }
 
 
+/*---------- Responsive Design ------------*/
+@media screen and (max-width: 550px){
+
+    .container {
+        width: 100vw;
+        height: 100vw;
+    }
+    .title {
+        font-size: 25px;   
+    }
+
+    .controls {
+        width: 99vw;
+        height: 8%;
+        display: flex;
+    }
+    .combo-puntos {
+        font-size: 20px;
+    }
+    .btn-control {
+        font-size: 20px;
+    }
+
+    .buttons-controller {
+        display: flex;
+    }
+    
+    .container-score {
+        font-size: px;
+        display: flex;
+        justify-content: flex-start
+    }
+    p {
+        margin-right: 25px;
+    }
+    .div-time {
+        height: 8%;
+        font-size: 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+       
+    }
+    .fa-hourglass-half {
+        font-size: 15px;
+    }
+    .seconds {
+        font-size: 15px;
+    }
+}
 
