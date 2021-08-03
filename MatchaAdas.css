@@ -1,10 +1,10 @@
 * {
     @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-        transition: all 3000ms ease;
+        /* transition: all 3000ms ease;
         -webkit-transition: all 3000ms ease;
         -moz-transition: all 3000ms ease;
         -ms-transition: all 3000ms ease;
-        -o-transition: all 3000ms ease;
+        -o-transition: all 3000ms ease; */
 }
 
 body {
@@ -136,15 +136,7 @@ span {
     cursor: pointer;
     transition: top 0.4s, left 0.4s, bottom 0.4s,
     right 0.4s; 
-    /* transform: 4s; */
     font-size: 35px;
-    /* transform: scale(1);   */
-    transition: all 3000ms ease;
-        -webkit-transition: all 3000ms ease;
-        -moz-transition: all 3000ms ease;
-        -ms-transition: all 3000ms ease;
-        -o-transition: all 3000ms ease;
-    
 }
   
 
