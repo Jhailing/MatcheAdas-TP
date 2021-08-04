@@ -63,7 +63,6 @@ const createGrid = () => {
         dataGrid[column] = cells;
     }
     console.log(dataGrid);
-    return dataGrid;
 }
 
 
@@ -131,7 +130,7 @@ const swapSquares = (e) => {
         e.preventDefault();
     }
 
-    
+
 }
 
 //Posible solucion para le intercambio de divs desde el browser
@@ -195,22 +194,6 @@ const swapSquares = (e) => {
 //     clickedItem.push(e.target);
 // }
 // }
-// const descendItems = (dataGrid) => {
-//         for (let i = dataGrid; i >= 0; i--) {
-//          let getEmptySquare = document.querySelector(`[data-col="${i}"]`)
-//          for (let j = getEmptySquare.length - 1; j >= 0; j--) {
-//             if (getEmptySquare[j] === 0) {
-//                 for (let k = j; k >= 0; k--) {
-//                         if (getEmptySquare !== 0) {
-//                             getEmptySquare[j] = getEmptySquare[k];
-//                             getEmptySquare[k] = 0;
-//                             break;
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
 
 //Descender items
 // const itemsDown = (dataGrid) => {
